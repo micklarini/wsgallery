@@ -1,0 +1,12 @@
+{% extends 'page.html.twig' %}
+{% block content %}
+    {% if images|length > 0 %}
+    <div class="thumbs-cnt">
+        {% for item in images %}
+        <div class="thumb-img">
+            <img data-src="{{ item }}" alt="" />
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}

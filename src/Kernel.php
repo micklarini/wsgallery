@@ -25,7 +25,8 @@ class Kernel {
         try {
             // Рутинга в приниципе никакого в задаче нет, 
             // поэтому ориенитруемся только на имя скрипта.
-            switch (basename($this->request->getScriptName())) {
+            $path = $this->request->getBaseUrl() == '' ? $this->request->getPathInfo() : $this->request->getBaseUrl();
+            switch (basename($path)) {
                 case 'generator.php':
                     $controlName = '\App\ImageController';
                     break;

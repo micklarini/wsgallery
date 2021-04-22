@@ -5,7 +5,7 @@ namespace App;
 use Symfony\Component\HttpFoundation\{Request, Response, BinaryFileResponse};
 use Symfony\Component\HttpFoundation\File\Stream;
 
-class ImageController
+class ImageController extends BaseController
 {
     protected array $sizes;
     protected string $imgPath;
@@ -28,10 +28,10 @@ class ImageController
             $this->validateQuery($request);
             $target = $this->getDeferred($request->query->get('name'), strtolower($request->query->get('size')));
             $stream = new Stream($target['name']);
-            $response = new BinaryFileResponse($stream, 200, ['Content-Type' => $target['mime']]);
+            $response = new BinaryFileResponse($stream, Response::HTTP_OK, ['Content-Type' => $target['mime']]);
         }
         catch (\Excepion $e) {
-            $response = new Response($e->getMessage(), 500);
+            $response = new Response($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         $response->send();
     }
